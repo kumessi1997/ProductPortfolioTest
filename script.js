@@ -38,19 +38,37 @@ function onRiveEventReceived(riveEvent) {
     const eventData = riveEvent.data;
     console.log(eventData); // <-- Add this line
 
-    if (eventData.name === "akaweb3") {
+    if (eventData.name === "akabot_fb") {
         if (eventData.url) {
             window.open(eventData.url);
         } else {
             alert('No URL provided for this event!');
         }
-    } else if (eventData.name === "akafb3") {
+    } else if (eventData.name === "akabot_web") {
         if (eventData.url) {
             window.open(eventData.url);
         } else {
             alert('No URL provided for this event!');
         }
-    } else if (eventData.name === "akalink3") {
+    } else if (eventData.name === "akabot_linkedin") {
+        if (eventData.url) {
+            window.open(eventData.url);
+        } else {
+            alert('No URL provided for this event!');
+        }
+    } else if (eventData.name === "ubot_fb") {
+        if (eventData.url) {
+            window.open(eventData.url);
+        } else {
+            alert('No URL provided for this event!');
+        }
+    } else if (eventData.name === "ubot_web") {
+        if (eventData.url) {
+            window.open(eventData.url);
+        } else {
+            alert('No URL provided for this event!');
+        }
+    } else if (eventData.name === "ubot_linkedin") {
         if (eventData.url) {
             window.open(eventData.url);
         } else {
