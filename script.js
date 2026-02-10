@@ -22,6 +22,42 @@ const r = new rive.Rive({
     artboard: "Main",
     onLoad: () => {
         r.resizeDrawingSurfaceToCanvas();
+
+        // Bind widthnum property to canvas width
+        try {
+            // Access the current instance that was auto-bound
+            let vmi = r.viewModelInstance;
+            if (vmi) {
+                // Numbers
+                const widthNumProperty = vmi.number("widthnum");
+
+                const updateWidth = () => {
+                    const canvas = document.getElementById("riveCanvas");
+                    if (widthNumProperty && canvas) {
+                        widthNumProperty.value = canvas.width;
+                    }
+                };
+
+                // Initial set
+                updateWidth();
+
+                // Update on resize
+                window.addEventListener('resize', () => {
+                    updateWidth();
+                });
+            }
+        } catch (e) {
+            console.log('Error binding widthnum:', e);
+        }
+        // Inspect capabilities
+        console.log('Rive Instance:', r);
+        try {
+            const inputs = r.stateMachineInputs("State Machine 1");
+            console.log('State Machine Inputs:', inputs);
+        } catch (e) {
+            console.log('Error getting inputs:', e);
+        }
+
         // Hide loading overlay when main animation is ready
         const overlay = document.getElementById('loading-overlay');
         if (overlay) {
