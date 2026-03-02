@@ -90,6 +90,23 @@
         .reveal-delay-500 {
             transition-delay: 500ms;
         }
+
+        #sticky-nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            width: auto;
+            pointer-events: auto;
+        }
+
+        #sticky-nav.nav-hidden {
+            opacity: 0;
+            transform: translate(-50%, -20px);
+            pointer-events: none;
+        }
     </style>
     <link id="all-fonts-link-font-manrope" rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap">
@@ -106,7 +123,7 @@
     <!-- Top Gradient Brand Bar -->
     <div class="h-1 w-full bg-gradient-to-r from-[#0668b2] via-[#f27126] to-[#16b04c] fixed top-0 left-0 z-50"></div>
 
-    <div
+    <div id="top-of-page"
         class="mx-auto max-w-7xl border-l border-r border-dashed border-gray-300 min-h-screen relative bg-gray-50/50 mt-1">
 
         <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
@@ -120,6 +137,31 @@
             <div class="w-px h-full bg-gray-300"></div>
             <div class="w-px h-full bg-gray-300"></div>
             <div class="w-px h-full bg-gray-300"></div>
+        </div>
+
+        <!-- STICKY NAVIGATION -->
+        <div id="sticky-nav" class="w-full flex justify-center">
+            <nav
+                class="bg-[#0f1115]/80 backdrop-blur-xl border border-white/10 rounded-full py-2 px-3 flex items-center gap-6 text-sm shadow-2xl">
+                <a href="#top-of-page" class="w-20 flex items-center justify-center pl-2">
+                    <img src="img/logofpt.png" alt="FPT Logo" class="h-6 w-auto object-contain">
+                </a>
+                <div class="hidden md:flex items-center gap-6 border-l border-white/20 pl-6">
+                    <a href="https://fpt-is.com"
+                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Trang
+                        chủ</a>
+                    <a href="#fpt-is-section"
+                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Giới
+                        thiệu FPT IS</a>
+                    <a href="#rive-canvas-section"
+                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Sản
+                        phẩm MBF</a>
+                </div>
+                <a href="#contact-section"
+                    class="bg-white text-black px-4 py-1.5 rounded-full text-sm hover:bg-[#0668b2] hover:text-white transition-colors font-sans whitespace-nowrap flex items-center gap-2 ml-2">
+                    Liên hệ tư vấn
+                </a>
+            </nav>
         </div>
 
         <main class="relative z-10 p-4 md:p-6 lg:p-8 space-y-6">
@@ -143,28 +185,6 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f1115] via-[#0f1115]/80 to-[#0668b2]/20">
                         </div>
                     </div>
-                </div>
-
-                <div class="relative z-10 w-full flex justify-center">
-                    <nav
-                        class="bg-white/5 backdrop-blur-md border border-white/10 rounded-full py-2 px-3 flex items-center gap-6 text-sm">
-                        <div class="w-20 flex items-center justify-center pl-2">
-                            <img src="img/logofpt.png" alt="FPT Logo" class="h-6 w-auto object-contain">
-                        </div>
-                        <div class="hidden md:flex items-center gap-6 border-l border-white/20 pl-6">
-
-                            <a href="#"
-                                class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Giới
-                                thiệu FPT IS</a>
-                            <a href="#rive-canvas-section"
-                                class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Sản
-                                phẩm MBF</a>
-                        </div>
-                        <button
-                            class="bg-white text-black px-4 py-1.5 rounded-full text-sm hover:bg-[#0668b2] hover:text-white transition-colors font-sans whitespace-nowrap flex items-center gap-2 ml-2">
-                            Liên hệ tư vấn
-                        </button>
-                    </nav>
                 </div>
 
                 <div class="relative z-10 mt-auto max-w-4xl">
@@ -341,6 +361,26 @@
                         // Observe both counters and reveal items
                         counters.forEach(counter => observer.observe(counter));
                         document.querySelectorAll('.reveal-item').forEach(item => observer.observe(item));
+
+                        // Sticky Nav Hide/Show Logic
+                        const stickyNav = document.getElementById('sticky-nav');
+                        let navScrollTimeout;
+
+                        window.addEventListener('scroll', () => {
+                            // Show nav when scrolling
+                            stickyNav.classList.remove('nav-hidden');
+
+                            // Clear previous timeout
+                            clearTimeout(navScrollTimeout);
+
+                            // Set timeout to hide after 5 seconds of no scrolling
+                            navScrollTimeout = setTimeout(() => {
+                                // Only hide if we aren't at the very top (optional but recommended)
+                                if (window.scrollY > 50) {
+                                    stickyNav.classList.add('nav-hidden');
+                                }
+                            }, 5000);
+                        });
                     });
                 </script>
             </section>
@@ -480,7 +520,7 @@
             </section>
 
             <!-- FPT IS INTRODUCTION SECTION -->
-            <section
+            <section id="fpt-is-section"
                 class="mt-8 bg-gradient-to-r from-[#1c1b54] via-[#17286d] to-[#0c4091] rounded-[2.5rem] p-8 lg:p-16 overflow-hidden relative shadow-2xl border border-white/10 flex flex-col lg:flex-row items-center gap-12">
 
                 <!-- Abstract Background Glows -->
@@ -678,8 +718,8 @@
             </section>
 
             <!-- RIVE ANIMATION SECTION -->
-            <section id="rive-canvas-section"
-                class="w-full bg-blue-600 flex items-center justify-center relative reveal-item transition-all duration-[800ms] ease-in aspect-[9/16] md:aspect-video md:h-auto max-h-[90vh] mx-auto overflow-hidden rounded-[2.5rem] border border-white/20 mt-8">
+            <section id="rive-canvas-section" style="background: linear-gradient(to right, #1c1b54, #17286d, #0c4091);"
+                class="w-full flex items-center justify-center relative reveal-item transition-all duration-[800ms] ease-in aspect-[9/16] md:aspect-video md:h-auto max-h-[90vh] mx-auto overflow-hidden rounded-[2.5rem] border border-white/20 mt-8">
                 <canvas id="rive-canvas-test" class="w-full h-full"></canvas>
                 <script>
                     window.addEventListener('load', () => {
@@ -1136,7 +1176,7 @@
             </section>
 
             <!-- CONTACT SECTION -->
-            <section
+            <section id="contact-section"
                 class="lg:p-16 overflow-hidden flex flex-col md:flex-row gap-16 bg-[#1a1c23] border-white/5 border rounded-[2.5rem] mt-8 pt-8 pr-8 pb-8 pl-8 relative shadow-2xl gap-x-16 gap-y-16">
                 <div
                     class="absolute top-0 right-0 w-[400px] h-[400px] bg-gradient-to-tr from-[#0668b2] via-[#f27126] to-[#16b04c] opacity-20 rounded-full blur-[100px] pointer-events-none">
