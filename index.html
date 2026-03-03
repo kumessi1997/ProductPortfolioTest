@@ -91,6 +91,20 @@
             transition-delay: 500ms;
         }
 
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .animate-shimmer {
+            animation: shimmer 2s infinite;
+        }
+
         #sticky-nav {
             position: fixed;
             top: 2rem;
@@ -106,6 +120,69 @@
             opacity: 0;
             transform: translate(-50%, -20px);
             pointer-events: none;
+        }
+
+        /* Fullscreen Rive Section Styles */
+        #rive-canvas-section.is-fullscreen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-height: none !important;
+            z-index: 9999 !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            aspect-ratio: auto !important;
+        }
+
+        #rive-canvas-section .fullscreen-toggle {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #rive-canvas-section .fullscreen-toggle:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        body.no-scroll {
+            overflow: hidden !important;
+        }
+
+        @media (max-width: 768px) {
+            #sticky-nav {
+                top: auto;
+                bottom: 1.5rem;
+                left: 1rem;
+                transform: translateX(0);
+                width: 75vw;
+                justify-content: flex-start;
+            }
+
+            #sticky-nav.nav-hidden {
+                transform: translateY(20px);
+            }
+
+            #sticky-nav nav {
+                padding: 0.5rem 1rem;
+                gap: 0.75rem;
+                width: 100%;
+                justify-content: space-between;
+            }
         }
     </style>
     <link id="all-fonts-link-font-manrope" rel="stylesheet"
@@ -143,23 +220,39 @@
         <div id="sticky-nav" class="w-full flex justify-center">
             <nav
                 class="bg-[#0f1115]/80 backdrop-blur-xl border border-white/10 rounded-full py-2 px-3 flex items-center gap-6 text-sm shadow-2xl">
-                <a href="#top-of-page" class="w-20 flex items-center justify-center pl-2">
-                    <img src="img/logofpt.png" alt="FPT Logo" class="h-6 w-auto object-contain">
+                <a href="#top-of-page" class="w-16 md:w-20 flex items-center justify-center pl-2">
+                    <img src="img/logofpt.png" alt="FPT Logo" class="h-5 md:h-6 w-auto object-contain">
                 </a>
+
+                <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-6 border-l border-white/20 pl-6">
                     <a href="https://fpt-is.com"
                         class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Trang
                         chủ</a>
                     <a href="#fpt-is-section"
-                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Giới
-                        thiệu FPT IS</a>
+                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Giới thiệu
+                        FPT IS</a>
                     <a href="#rive-canvas-section"
-                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Sản
-                        phẩm MBF</a>
+                        class="text-gray-300 hover:text-white transition-colors font-sans whitespace-nowrap">Sản phẩm
+                        MBF</a>
                 </div>
+
+                <!-- Mobile Menu Icons -->
+                <div class="flex md:hidden items-center gap-5 border-l border-white/20 pl-5">
+                    <a href="#fpt-is-section"
+                        class="text-gray-400 hover:text-white transition-colors flex items-center">
+                        <iconify-icon icon="solar:info-circle-linear" class="text-xl"></iconify-icon>
+                    </a>
+                    <a href="#rive-canvas-section"
+                        class="text-gray-400 hover:text-white transition-colors flex items-center">
+                        <iconify-icon icon="solar:box-linear" class="text-xl"></iconify-icon>
+                    </a>
+                </div>
+
                 <a href="#contact-section"
                     class="bg-white text-black px-4 py-1.5 rounded-full text-sm hover:bg-[#0668b2] hover:text-white transition-colors font-sans whitespace-nowrap flex items-center gap-2 ml-2">
-                    Liên hệ tư vấn
+                    <span class="hidden xs:inline">Liên hệ</span>
+                    <iconify-icon icon="solar:phone-calling-linear" class="text-lg"></iconify-icon>
                 </a>
             </nav>
         </div>
@@ -168,7 +261,7 @@
 
             <!-- HERO SECTION -->
             <section
-                class="relative w-full rounded-[2.5rem] overflow-hidden bg-[#0f1115] text-white min-h-[600px] flex flex-col justify-between p-8 lg:p-12 shadow-2xl shadow-gray-200">
+                class="relative w-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden bg-[#0f1115] text-white min-h-[85vh] md:min-h-0 md:aspect-video flex flex-col justify-end md:justify-between p-6 sm:p-8 lg:p-12 shadow-2xl shadow-gray-200">
                 <div class="absolute inset-0 z-0">
                     <img src="https://hoirqrkdgbmvpwutwuwj.supabase.co/storage/v1/object/public/assets/assets/1f147f7d-661c-4181-a17e-e2ca5322b1b0_1600w.webp"
                         alt="Abstract 3D" class="opacity-60 mix-blend-overlay w-full h-full object-cover">
@@ -196,12 +289,30 @@
                         </span>
                     </div>
                     <h1
-                        class="md:text-7xl leading-[1.1] text-5xl font-normal text-white tracking-tight font-manrope mb-8">
+                        class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.1] font-normal text-white tracking-tight font-manrope mb-6 md:mb-8">
                         Danh mục sản phẩm <br>
                         <span
                             class="text-transparent bg-clip-text bg-gradient-to-r from-[#0668b2] via-[#f27126] to-[#16b04c] font-manrope font-normal tracking-tight">FPT
                             IS</span>
                     </h1>
+
+                    <div
+                        class="flex flex-col sm:flex-row flex-wrap gap-3 md:gap-4 items-stretch sm:items-center origin-left w-full sm:w-auto">
+                        <a href="#rive-canvas-section"
+                            class="group relative inline-flex items-center justify-center px-6 py-3.5 md:px-8 md:py-4 bg-[#0668b2] text-white rounded-full font-manrope font-medium text-base md:text-lg overflow-hidden transition-all duration-300 hover:shadow-[0_10px_30px_rgba(6,104,178,0.3)] hover:-translate-y-1 w-full sm:w-auto">
+                            <span
+                                class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
+                            Khám phá sản phẩm MBF
+                            <iconify-icon icon="solar:arrow-right-up-linear"
+                                class="ml-2 text-lg md:text-xl group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></iconify-icon>
+                        </a>
+                        <button type="button" onclick="window.chatbase('open')"
+                            class="inline-flex items-center justify-center px-6 py-3.5 md:px-8 md:py-4 bg-white/5 backdrop-blur-md border border-white/10 text-white rounded-full font-manrope font-medium text-base md:text-lg hover:bg-white/10 hover:border-white/20 transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                            Tìm hiểu sản phẩm cùng AMI
+                            <iconify-icon icon="solar:chat-round-dots-linear"
+                                class="ml-2 text-lg md:text-xl"></iconify-icon>
+                        </button>
+                    </div>
                 </div>
 
 
@@ -221,8 +332,8 @@
                     <!-- Top Content: Basic Info -->
                     <div class="max-w-4xl mb-12">
                         <h2
-                            class="text-4xl md:text-5xl lg:text-6xl font-manrope font-bold mb-10 leading-tight tracking-tight">
-                            FPT – Tập đoàn công nghệ Đa quốc gia <br> đẳng cấp toàn cầu
+                            class="text-4xl md:text-5xl lg:text-4xl font-manrope font-bold mb-10 leading-tight tracking-tight">
+                            FPT – Tập đoàn công nghệ <br> Đa quốc gia đẳng cấp toàn cầu
                         </h2>
                         <ul class="space-y-4 text-lg md:text-xl text-white/90 font-sans">
                             <li class="flex items-center gap-4">
@@ -251,18 +362,15 @@
                             <!-- Column 1: Core entities -->
                             <div class="flex-1 space-y-10">
                                 <div class="flex items-center gap-6 border-b border-gray-100 pb-6">
-                                    <span class="text-5xl font-manrope font-bold text-[#0668b2] counter"
-                                        data-target="8">00</span>
+                                    <span class="text-5xl font-manrope font-bold text-[#0668b2]">8</span>
                                     <span class="text-gray-500 font-medium text-lg">Công ty thành viên</span>
                                 </div>
                                 <div class="flex items-center gap-6 border-b border-gray-100 pb-6">
-                                    <span class="text-5xl font-manrope font-bold text-[#0668b2] counter"
-                                        data-target="2">00</span>
+                                    <span class="text-5xl font-manrope font-bold text-[#0668b2]">2</span>
                                     <span class="text-gray-500 font-medium text-lg">Công ty liên kết</span>
                                 </div>
                                 <div class="flex items-center gap-6">
-                                    <span class="text-5xl font-manrope font-bold text-[#0668b2] counter"
-                                        data-target="5">00</span>
+                                    <span class="text-5xl font-manrope font-bold text-[#0668b2]">5</span>
                                     <span class="text-gray-500 font-medium text-lg leading-snug">Tổ hợp đào tạo và <br>
                                         công viên phần mềm</span>
                                 </div>
@@ -273,13 +381,13 @@
                                 class="flex-1 space-y-12 flex flex-col justify-center border-l border-gray-100 md:pl-12">
                                 <div>
                                     <div class="text-5xl font-manrope font-bold text-[#0668b2] mb-3">
-                                        <span class="counter" data-target="83000">0</span>+
+                                        83.000+
                                     </div>
                                     <div class="text-gray-500 font-medium text-lg">CBNV - 79 quốc tịch</div>
                                 </div>
                                 <div class="pt-8 border-t border-gray-100">
                                     <div class="text-5xl font-manrope font-bold text-[#0668b2] mb-3">
-                                        <span class="counter" data-target="200">0</span>+
+                                        200+
                                     </div>
                                     <div class="text-gray-500 font-medium text-lg leading-tight">Nền tảng sản phẩm, <br>
                                         giải pháp</div>
@@ -301,8 +409,7 @@
                                         thu năm 2024</div>
                                     <div
                                         class="text-5xl font-manrope font-bold text-[#f27126] flex items-baseline gap-2">
-                                        <span class="counter" data-target="62849">0</span> <span
-                                            class="text-xl font-normal text-gray-500">tỷ đồng</span>
+                                        62.849 <span class="text-xl font-normal text-gray-500">tỷ đồng</span>
                                     </div>
                                 </div>
 
@@ -312,8 +419,7 @@
                                         Doanh thu Dịch vụ Công <br> nghệ thông tin nước ngoài</div>
                                     <div
                                         class="text-5xl font-manrope font-bold text-[#f27126] flex items-baseline gap-2">
-                                        <span class="counter" data-target="30953">0</span> <span
-                                            class="text-xl font-normal text-gray-500">tỷ đồng</span>
+                                        30.953 <span class="text-xl font-normal text-gray-500">tỷ đồng</span>
                                     </div>
                                 </div>
                             </div>
@@ -720,10 +826,20 @@
             <!-- RIVE ANIMATION SECTION -->
             <section id="rive-canvas-section" style="background: linear-gradient(to right, #1c1b54, #17286d, #0c4091);"
                 class="w-full flex items-center justify-center relative reveal-item transition-all duration-[800ms] ease-in aspect-[9/16] md:aspect-video md:h-auto max-h-[90vh] mx-auto overflow-hidden rounded-[2.5rem] border border-white/20 mt-8">
+
+                <!-- Fullscreen Toggle Button -->
+                <button id="fullscreen-btn" class="fullscreen-toggle" title="Toggle Fullscreen">
+                    <iconify-icon id="fullscreen-icon" icon="solar:maximize-linear" class="text-2xl"></iconify-icon>
+                </button>
+
                 <canvas id="rive-canvas-test" class="w-full h-full"></canvas>
                 <script>
                     window.addEventListener('load', () => {
                         const testCanvas = document.getElementById('rive-canvas-test');
+                        const riveSection = document.getElementById('rive-canvas-section');
+                        const fullscreenBtn = document.getElementById('fullscreen-btn');
+                        const fullscreenIcon = document.getElementById('fullscreen-icon');
+
                         if (testCanvas && typeof rive !== 'undefined') {
                             const r = new rive.Rive({
                                 src: 'test.riv',
@@ -746,18 +862,39 @@
                                             const widthNumProperty = vmi.number("widthnum");
                                             const updateWidth = () => {
                                                 if (widthNumProperty && testCanvas) {
-                                                    // Using offsetWidth for the actual CSS width
                                                     widthNumProperty.value = testCanvas.offsetWidth;
                                                 }
                                             };
                                             updateWidth();
-                                            // The existing resize listener will trigger this via the window resize event
                                             window.addEventListener('resize', updateWidth);
                                         }
                                     } catch (e) {
                                         console.log('Error binding widthnum:', e);
                                     }
                                 }
+                            });
+
+                            // Fullscreen Toggle Logic
+                            fullscreenBtn.addEventListener('click', () => {
+                                riveSection.classList.toggle('is-fullscreen');
+                                document.body.classList.toggle('no-scroll');
+
+                                const stickyNav = document.getElementById('sticky-nav');
+
+                                if (riveSection.classList.contains('is-fullscreen')) {
+                                    fullscreenIcon.setAttribute('icon', 'solar:minimize-linear');
+                                    if (stickyNav) stickyNav.style.display = 'none';
+                                } else {
+                                    fullscreenIcon.setAttribute('icon', 'solar:maximize-linear');
+                                    if (stickyNav) stickyNav.style.display = '';
+                                }
+
+                                // Delay a bit to ensure the section has resized before Rive updates
+                                setTimeout(() => {
+                                    r.resizeDrawingSurfaceToCanvas();
+                                    // Also trigger the internal resize listener for widthnum
+                                    window.dispatchEvent(new Event('resize'));
+                                }, 50);
                             });
 
                             window.addEventListener('resize', () => {
@@ -802,7 +939,7 @@
                         </div>
 
                         <div class="relative min-h-[400px] bg-gray-900 overflow-hidden group rounded-3xl">
-                            <img src="img/anh_nen.jpg" alt="Abstract"
+                            <img src="img/Frame 1.jpg" alt="Abstract"
                                 class="group-hover:scale-105 group-hover:opacity-60 transition-all duration-700 opacity-70 w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0">
                             <div
                                 class="bg-gradient-to-t from-[#0668b2]/80 via-transparent to-black/20 absolute top-0 right-0 bottom-0 left-0 opacity-80 mix-blend-multiply">
@@ -825,7 +962,7 @@
                         <div
                             class="min-h-[400px] flex flex-col overflow-hidden group text-center bg-gray-900 pt-8 pr-8 pb-8 pl-8 relative items-center justify-between rounded-3xl text-white">
                             <!-- Background Image -->
-                            <img src="img/anh_nen.jpg" alt="Customer Network Background"
+                            <img src="img/Frame 2.jpg" alt="Customer Network Background"
                                 class="group-hover:scale-110 group-hover:opacity-60 transition-all duration-1000 opacity-40 w-full h-full object-cover absolute top-0 left-0">
                             <!-- Overlay -->
                             <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/60">
@@ -844,7 +981,7 @@
                         <div
                             class="min-h-[400px] flex flex-col group overflow-hidden text-white bg-gray-900 pt-8 pr-8 pb-8 pl-8 relative justify-between rounded-3xl">
                             <!-- Background Image -->
-                            <img src="img/toanhafpt.png" alt="Solutions Background"
+                            <img src="img/Frame 3.jpg" alt="Solutions Background"
                                 class="group-hover:scale-105 group-hover:opacity-40 transition-all duration-700 opacity-30 w-full h-full object-cover absolute top-0 left-0">
                             <!-- Overlay -->
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
@@ -988,187 +1125,124 @@
                     </div>
 
                     <!-- Customer Logo Grid Subsection -->
-                    <div class="mt-32 pt-24 border-t border-gray-100">
-                        <div class="text-center mb-16">
-                            <h3 class="text-3xl font-manrope font-normal text-gray-900 tracking-tight">Đối tác & Khách
-                                hàng tiêu biểu</h3>
+                    <div class="mt-32 p-8 lg:p-16 bg-[#333333] rounded-[2.5rem] shadow-2xl relative overflow-hidden">
+                        <!-- Subtle Background Accents -->
+                        <div
+                            class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent pointer-events-none">
                         </div>
-                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                            <!-- Logo Placeholders -->
+
+                        <div class="relative z-10 text-center mb-16">
+                            <h3 class="text-3xl font-manrope font-normal text-white tracking-tight">Đối tác & Khách hàng
+                                tiêu biểu</h3>
+                        </div>
+
+                        <div class="relative z-10 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                            <!-- Row 1 -->
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group reveal-item">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-[#0668b2] transition-colors">TPBank</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh1.png" alt="Customer Logo 1"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group reveal-item reveal-delay-100">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-[#f27126] transition-colors">VPBank</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh2.png" alt="Customer Logo 2"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group reveal-item reveal-delay-200">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-[#0668b2] transition-colors">OCB</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh3.png" alt="Customer Logo 3"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group reveal-item reveal-delay-300">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors">ENEOS</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh4.png" alt="Customer Logo 4"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group reveal-item reveal-delay-400">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-green-700 transition-colors">Vietcombank</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh5.jpg" alt="Customer Logo 5"
+                                    class="max-h-full max-w-full object-contain">
+                            </div>
+
+                            <!-- Row 2 -->
+                            <div
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh6.png" alt="Customer Logo 6"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group reveal-item reveal-delay-500">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-800 transition-colors font-serif">Sumitomo</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh7.jpg" alt="Customer Logo 7"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-900 transition-colors">VinFast</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh8.png" alt="Customer Logo 8"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-500 transition-colors">Unilever</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh9.png" alt="Customer Logo 9"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-500 transition-colors">Kimberly-Clark</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh10.webp" alt="Customer Logo 10"
+                                    class="max-h-full max-w-full object-contain">
+                            </div>
+
+                            <!-- Row 3 -->
+                            <div
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh11.png" alt="Customer Logo 11"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-yellow-600 transition-colors">Ponta</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh12.png" alt="Customer Logo 12"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors font-bold">intage</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh13.png" alt="Customer Logo 13"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-700 transition-colors">MSB</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh14.webp" alt="Customer Logo 14"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-orange-900 transition-colors uppercase">SABECO</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh15.webp" alt="Customer Logo 15"
+                                    class="max-h-full max-w-full object-contain">
+                            </div>
+
+                            <!-- Row 4 -->
+                            <div
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh15.webp" alt="Customer Logo 16"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-[#0668b2] transition-colors">VNPAY</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh17.webp" alt="Customer Logo 17"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-black transition-colors font-mono">be</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh18.png" alt="Customer Logo 18"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-700 transition-colors">SSI</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh19.png" alt="Customer Logo 19"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                             <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-600 transition-colors">Mizuho</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-500 transition-colors">Vinamilk</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-orange-500 transition-colors">Petrolimex</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors">HSBC</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-900 transition-colors font-bold uppercase">AEON</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors font-bold italic">TPS</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-700 transition-colors font-bold">TOYOTA</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors">SHINSEGAE</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-green-800 transition-colors">HABECO</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors">C.P.GROUP</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-600 transition-colors">Shinhan
-                                    Securities</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-blue-800 transition-colors font-sans">ACS</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-[rgb(21,71,138)] transition-colors">NIPPON
-                                    STEEL</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-orange-600 transition-colors font-bold italic">SUN
-                                    GROUP</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors font-bold uppercase">Vietjet
-                                    Air</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-[#0668b2] transition-colors">VietinBank</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-green-700 transition-colors">wilmar</span>
-                            </div>
-                            <div
-                                class="aspect-[16/9] bg-white border border-gray-100 rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-md transition-all group">
-                                <span
-                                    class="text-sm font-bold text-gray-400 group-hover:text-red-600 transition-colors uppercase font-bold">Central
-                                    Retail</span>
+                                class="aspect-square bg-white rounded-2xl flex items-center justify-center p-6 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                                <img src="logocustomer/logokh20.png" alt="Customer Logo 20"
+                                    class="max-h-full max-w-full object-contain">
                             </div>
                         </div>
                     </div>
