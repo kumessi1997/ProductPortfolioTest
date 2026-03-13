@@ -105,6 +105,68 @@
             animation: shimmer 2s infinite;
         }
 
+        /* Rive Modal Styles */
+        .rive-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .rive-modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .rive-modal-container {
+            width: 100%;
+            max-width: 1440px;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .rive-modal-overlay.active .rive-modal-container {
+            transform: scale(1) translateY(0);
+        }
+
+        .rive-modal-close {
+            position: absolute;
+            top: 32px;
+            right: 32px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .rive-modal-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+
         #sticky-nav {
             position: fixed;
             top: 2rem;
@@ -897,8 +959,76 @@
                                 }, 50);
                             });
 
+                            // Modal Elements
+                            const modal = document.getElementById('rive-event-modal');
+                            const closeBtn = document.getElementById('close-rive-modal');
+                            const popupCanvas = document.getElementById('rive-popup-canvas');
+                            let popupRive = null;
+
+                            const showRiveModal = () => {
+                                modal.classList.add('active');
+                                document.body.style.overflow = 'hidden';
+
+                                // Initialize Rive for the popup if not already done
+                                if (!popupRive) {
+                                    popupRive = new rive.Rive({
+                                        src: 'vertzero.riv',
+                                        canvas: popupCanvas,
+                                        artboard: 'Main',
+                                        stateMachines: ['State Machine 1'],
+                                        autoplay: true,
+                                        autoBind: true,
+                                        onLoad: () => {
+                                            popupRive.resizeDrawingSurfaceToCanvas();
+                                        },
+                                    });
+                                } else {
+                                    popupRive.play();
+                                }
+                            };
+
+                            const hideRiveModal = () => {
+                                modal.classList.remove('active');
+                                document.body.style.overflow = '';
+                                if (popupRive) popupRive.pause();
+                            };
+
+                            closeBtn.addEventListener('click', hideRiveModal);
+                            modal.addEventListener('click', (e) => {
+                                if (e.target === modal) hideRiveModal();
+                            });
+
+                            // Handle Rive events (links, interactions)
+                            const onRiveEventReceived = (riveEvent) => {
+                                const eventData = riveEvent.data;
+                                console.log('Rive Event Received:', eventData);
+
+                                if (eventData.name === "akabot_fb") {
+                                    showRiveModal();
+                                    return;
+                                }
+
+                                // List of events that should trigger opening a URL
+                                const linkEvents = [
+                                    "akabot_web", "akabot_linkedin",
+                                    "ubot_fb", "ubot_web", "ubot_linkedin"
+                                ];
+
+                                if (linkEvents.includes(eventData.name)) {
+                                    if (eventData.url) {
+                                        window.open(eventData.url, '_blank');
+                                    } else {
+                                        alert('No URL provided for this event!');
+                                    }
+                                }
+                            };
+
+                            // Register the event listener
+                            r.on(rive.EventType.RiveEvent, onRiveEventReceived);
+
                             window.addEventListener('resize', () => {
                                 r.resizeDrawingSurfaceToCanvas();
+                                if (popupRive) popupRive.resizeDrawingSurfaceToCanvas();
                             });
                         }
                     });
@@ -1495,6 +1625,16 @@
     <script>
         (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "MqU49Bnoh6Y17Sg2wXL7f"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
     </script>
+
+    <!-- Rive Event Modal -->
+    <div id="rive-event-modal" class="rive-modal-overlay">
+        <button class="rive-modal-close" id="close-rive-modal">
+            <iconify-icon icon="solar:close-circle-linear" class="text-2xl"></iconify-icon>
+        </button>
+        <div class="rive-modal-container">
+            <canvas id="rive-popup-canvas" class="w-full h-full"></canvas>
+        </div>
+    </div>
 
 </body>
 
