@@ -1003,14 +1003,14 @@
                                 const eventData = riveEvent.data;
                                 console.log('Rive Event Received:', eventData);
 
-                                if (eventData.name === "akabot_fb") {
+                                if (eventData.name === "vertdc") {
                                     showRiveModal();
                                     return;
                                 }
 
                                 // List of events that should trigger opening a URL
                                 const linkEvents = [
-                                    "akabot_web", "akabot_linkedin",
+                                    "akabot_web", "akabot_linkedin", "akabot_fb",
                                     "ubot_fb", "ubot_web", "ubot_linkedin"
                                 ];
 
