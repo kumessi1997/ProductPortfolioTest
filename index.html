@@ -964,18 +964,23 @@
                             const closeBtn = document.getElementById('close-rive-modal');
                             const popupCanvas = document.getElementById('rive-popup-canvas');
                             let popupRive = null;
+                            let currentPopupSrc = null;
 
-                            const showRiveModal = () => {
+                            const showRiveModal = (src = 'vertzero.riv', artboard = 'Main', stateMachine = 'State Machine 1') => {
                                 modal.classList.add('active');
                                 document.body.style.overflow = 'hidden';
 
-                                // Initialize Rive for the popup if not already done
-                                if (!popupRive) {
+                                // Initialize Rive for the popup if not already done or src has changed
+                                if (!popupRive || currentPopupSrc !== src) {
+                                    if (popupRive && typeof popupRive.cleanup === 'function') {
+                                        popupRive.cleanup();
+                                    }
+                                    currentPopupSrc = src;
                                     popupRive = new rive.Rive({
-                                        src: 'vertzero.riv',
+                                        src: src,
                                         canvas: popupCanvas,
-                                        artboard: 'Main',
-                                        stateMachines: ['State Machine 1'],
+                                        artboard: artboard,
+                                        stateMachines: [stateMachine],
                                         autoplay: true,
                                         autoBind: true,
                                         onLoad: () => {
@@ -1004,14 +1009,19 @@
                                 console.log('Rive Event Received:', eventData);
 
                                 if (eventData.name === "vertdc") {
-                                    showRiveModal();
+                                    showRiveModal('vertzero.riv', 'Main', 'State Machine 1');
+                                    return;
+                                }
+
+                                if (eventData.name === "azladindc") {
+                                    showRiveModal('brochure_azladin.riv', 'Main', 'State Machine 1');
                                     return;
                                 }
 
                                 // List of events that should trigger opening a URL
                                 const linkEvents = [
                                     "akabot_web", "akabot_linkedin", "akabot_fb",
-                                    "ubot_fb", "ubot_web", "ubot_linkedin"
+                                    "ubot_fb", "ubot_web", "ubot_linkedin", "azinsudc",
                                 ];
 
                                 if (linkEvents.includes(eventData.name)) {
