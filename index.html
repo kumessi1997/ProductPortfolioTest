@@ -191,7 +191,9 @@
             transform: scale(1.1);
         }
 
-        .rive-modal-container.is-fullscreen {
+        .rive-modal-container.is-fullscreen,
+        #rive-canvas-section:fullscreen,
+        .rive-modal-container:fullscreen {
             max-width: none !important;
             width: 100vw !important;
             height: 100vh !important;
@@ -200,6 +202,16 @@
             transform: none !important;
             border: none !important;
             z-index: 5;
+            background: #000;
+        }
+
+        /* Hide buttons slightly in presentation mode unless hovered */
+        #rive-canvas-section:fullscreen .fullscreen-toggle {
+            opacity: 0.2;
+        }
+
+        #rive-canvas-section:fullscreen .fullscreen-toggle:hover {
+            opacity: 1;
         }
 
         #sticky-nav {
@@ -971,27 +983,48 @@
                                 }
                             });
 
+                            const toggleMainFullscreen = () => {
+                                if (!document.fullscreenElement) {
+                                    riveSection.requestFullscreen().catch(err => {
+                                        console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+                                        // Fallback to class-based if native fails
+                                        riveSection.classList.add('is-fullscreen');
+                                        document.body.classList.add('no-scroll');
+                                    });
+                                } else {
+                                    if (document.exitFullscreen) document.exitFullscreen();
+                                }
+                            };
+
                             // Fullscreen Toggle Logic
-                            fullscreenBtn.addEventListener('click', () => {
-                                riveSection.classList.toggle('is-fullscreen');
-                                document.body.classList.toggle('no-scroll');
+                            fullscreenBtn.addEventListener('click', toggleMainFullscreen);
 
+                            // Sync icons and state with native fullscreen
+                            document.addEventListener('fullscreenchange', () => {
                                 const stickyNav = document.getElementById('sticky-nav');
-
-                                if (riveSection.classList.contains('is-fullscreen')) {
+                                if (document.fullscreenElement === riveSection) {
                                     fullscreenIcon.setAttribute('icon', 'solar:minimize-linear');
                                     if (stickyNav) stickyNav.style.display = 'none';
+                                } else if (document.fullscreenElement === modalContainer) {
+                                    modalFullscreenIcon.setAttribute('icon', 'solar:minimize-linear');
                                 } else {
+                                    // Exit logic for main section
+                                    riveSection.classList.remove('is-fullscreen');
+                                    document.body.classList.remove('no-scroll');
                                     fullscreenIcon.setAttribute('icon', 'solar:maximize-linear');
                                     if (stickyNav) stickyNav.style.display = '';
+
+                                    // Exit logic for modal
+                                    modalContainer.classList.remove('is-fullscreen');
+                                    modalFullscreenIcon.setAttribute('icon', 'solar:maximize-linear');
                                 }
 
                                 // Delay a bit to ensure the section has resized before Rive updates
                                 setTimeout(() => {
-                                    r.resizeDrawingSurfaceToCanvas();
-                                    // Also trigger the internal resize listener for widthnum
+                                    if (r) r.resizeDrawingSurfaceToCanvas();
+                                    if (popupRive) popupRive.resizeDrawingSurfaceToCanvas();
                                     window.dispatchEvent(new Event('resize'));
-                                }, 50);
+                                }, 100);
                             });
 
                             // Modal Elements
@@ -1005,15 +1038,14 @@
                             let currentPopupSrc = null;
 
                             const toggleModalFullscreen = () => {
-                                modalContainer.classList.toggle('is-fullscreen');
-                                if (modalContainer.classList.contains('is-fullscreen')) {
-                                    modalFullscreenIcon.setAttribute('icon', 'solar:minimize-linear');
+                                if (!document.fullscreenElement) {
+                                    modalContainer.requestFullscreen().catch(err => {
+                                        console.warn(`Error attempting to enable fullscreen: ${err.message}`);
+                                        modalContainer.classList.add('is-fullscreen');
+                                    });
                                 } else {
-                                    modalFullscreenIcon.setAttribute('icon', 'solar:maximize-linear');
+                                    if (document.exitFullscreen) document.exitFullscreen();
                                 }
-                                setTimeout(() => {
-                                    if (popupRive) popupRive.resizeDrawingSurfaceToCanvas();
-                                }, 50);
                             };
 
                             modalFullscreenBtn.addEventListener('click', toggleModalFullscreen);
@@ -1060,14 +1092,8 @@
                             // Handle Escape key
                             window.addEventListener('keydown', (e) => {
                                 if (e.key === 'Escape') {
-                                    if (modal.classList.contains('active')) {
-                                        if (modalContainer.classList.contains('is-fullscreen')) {
-                                            toggleModalFullscreen();
-                                        } else {
-                                            hideRiveModal();
-                                        }
-                                    } else if (riveSection.classList.contains('is-fullscreen')) {
-                                        fullscreenBtn.click();
+                                    if (modal.classList.contains('active') && !document.fullscreenElement) {
+                                        hideRiveModal();
                                     }
                                 }
                             });
