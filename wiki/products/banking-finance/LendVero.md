@@ -3,7 +3,7 @@ title: LendVero
 type: entity
 tags: [lendvero, fpt-is, fintech, lending, los, debt-collection, vietnam]
 created: 2026-04-14
-updated: 2026-04-14
+updated: 2026-05-06
 source_count: 4
 po_email: ToanPT15@fpt.com
 ---
@@ -12,7 +12,15 @@ po_email: ToanPT15@fpt.com
 
 **LendVero** is [[FPT IS]]'s end-to-end digital lending platform, targeting consumer finance companies (CTTCs) and banks in Vietnam. It covers the full lending lifecycle: loan origination through debt collection. The platform is designed to replace fragmented legacy systems at mid-size and smaller finance companies with a single, BPM-orchestrated, mobile-first solution.
 
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/TxHalz1Hx5A" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
+
 LendVero sits within FPT IS's Banking & Finance vertical alongside Volar (core banking), Votum (risk/compliance), Velox (business apps), akaFortune, and TradeFlat.
+
+[Linkedin LendVero](https://www.linkedin.com/showcase/lendvero/) 
 
 ## Modules
 

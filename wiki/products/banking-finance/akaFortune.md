@@ -3,7 +3,7 @@ title: akaFortune
 type: entity
 tags: [akafortune, fpt-is, banking, fintech, wealth-management, investment-advisory]
 created: 2026-04-13
-updated: 2026-04-13
+updated: 2026-05-06
 source_count: 1
 po_email: AnhPH25@fpt.com
 ---
@@ -13,6 +13,12 @@ po_email: AnhPH25@fpt.com
 **akaFortune** is an all-in-one financial advisory and wealth management platform developed and published by [[FPT IS]]. It is positioned as "Vietnam's Pioneering All-In-One Financial Advisory Platform." Target buyers are financial advisors, brokerages, banks, and wealth management firms that need to manage, advise on, and automate investment portfolios across multiple product types (stocks, bonds, mutual funds, ETFs, margin).
 
 akaFortune sits within [[FPT IS]]'s Banking & Finance vertical alongside the Volar (core banking), Votum (risk/compliance), and Velox (business apps) families — but targets a distinct use case: the front-office investment advisory workflow rather than back-office banking operations.
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/YqpyinjApN4" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 ## Platform architecture
 

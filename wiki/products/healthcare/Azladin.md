@@ -3,7 +3,7 @@ title: Azladin
 type: entity
 tags: [azladin, healthcare, digital-health, fhir, interoperability, fpt-is, hospital-it]
 created: 2026-04-13
-updated: 2026-04-13
+updated: 2026-05-06
 source_count: 1
 po_email: HienND@fpt.com
 ---
@@ -11,6 +11,12 @@ po_email: HienND@fpt.com
 ## Overview
 
 **Azladin** is FPT IS's **Digital Healthcare Platform** — a cloud SaaS product that unifies hospital and clinical systems across Vietnam through standards-based interoperability. It provides the foundational infrastructure layer for health information exchange: connecting patient records, medical imaging, clinical decision support, lab systems, and administrative workflows across individual hospitals and multi-facility networks.
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/O0uQLTQIep0" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 Tagline: "Connected services · Better insights · Better care"
 

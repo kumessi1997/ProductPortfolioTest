@@ -3,7 +3,7 @@ title: akaBot
 type: entity
 tags: [product, rpa, hyperautomation, agentic-automation, fpt]
 created: 2026-04-12
-updated: 2026-04-12
+updated: 2026-05-06
 source_count: 4
 po_email: GiapBD@fpt.com
 ---
@@ -13,6 +13,12 @@ po_email: GiapBD@fpt.com
 RPA (Robotic Process Automation) and hyperautomation platform by [[FPT Corporation]]. FPT's most internationally deployed product. 100% owned by FPT Software Ltd. Founded March 2018 in Vietnam. CEO: Bùi Đình Giáp.
 
 Sources: [[2025-04-10_fpt-mbf-product-catalog]], [[2025-06-01_akabot-ecosystem-brochure]], [[2025-06-01_akabot-pricing]], [[2025-06-01_akabot-industry-brochures]]
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/t5bOPVmsSig" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 ## Scale (as of June 2025)
 

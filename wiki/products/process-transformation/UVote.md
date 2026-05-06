@@ -3,7 +3,7 @@ title: UVote
 type: product
 tags: [uvote, e-voting, agm, shareholder-meeting, ekyc, akabot, fpt-is, process-transformation, rpa]
 created: 2026-04-17
-updated: 2026-04-18
+updated: 2026-05-06
 source_count: 3
 po_email: GiapBD@fpt.com
 ---
@@ -11,6 +11,12 @@ po_email: GiapBD@fpt.com
 ## Overview
 
 **UVote** (Giải Pháp Tổ Chức Đại Hội & Biểu Quyết Thế Hệ Mới) is an online AGM and e-voting platform developed by **akaBot – FPT**, designed to fully digitize the lifecycle of shareholder general meetings (ĐHĐCĐ) for Vietnamese listed companies and enterprises. Its vision is to become the **#1 Voting & Election Platform in Asia-Pacific**.
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/0KZL8KfdB6o" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 UVote automates the entire AGM process — from shareholder invitation and identity verification through live voting to automated report generation — reducing end-to-end meeting setup to **48 hours** and software configuration to **5 minutes**. Online participation is legally equivalent to in-person attendance under Article 140.2(c), Enterprise Law 2014.
 

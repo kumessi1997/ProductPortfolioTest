@@ -3,7 +3,7 @@ title: UBot
 type: product
 tags: [ubot, rpa, rpaas, automation, sme, finance-accounting, akabot, fpt, process-transformation]
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-05-06
 source_count: 3
 po_email: GiapBD@fpt.com
 ---
@@ -13,6 +13,12 @@ po_email: GiapBD@fpt.com
 **UBot** (Hệ Sinh Thái Tự Động Hóa Nghiệp Vụ Toàn Diện Cho Doanh Nghiệp) is a comprehensive **RPAaaS (RPA as a Service)** ecosystem developed by **akaBot – FPT**. It is positioned as Vietnam's first all-in-one business process automation ecosystem, targeting SMEs and mid-market enterprises, delivered as a packaged cloud service requiring no IT infrastructure investment and taking only **15 minutes to set up**.
 
 Primary focus: full automation of the **Finance & Accounting department** — covering the full purchase cycle (invoice intake → 3-way matching → payment → bank reconciliation) and the full sales cycle. UBot also covers Front-office, Operations, and Management automation via its broader ecosystem.
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/F2l0OoSQgyg" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 - **3,000+ customers** · **20+ countries** · **14 industries** · **3.5 million invoices processed**
 - Operates 24/7/365 with dedicated customer support

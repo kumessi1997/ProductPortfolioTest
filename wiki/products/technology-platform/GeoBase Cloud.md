@@ -3,7 +3,7 @@ title: GeoBase Cloud
 type: product
 tags: [geobase, gis, geospatial, fpt-is, construction, government, agriculture, platform]
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-05-06
 source_count: 1
 po_email: Truongpx14@fpt.com
 ---
@@ -13,6 +13,12 @@ po_email: Truongpx14@fpt.com
 **GeoBase Cloud** is FPT IS's **Geographic Information System (GIS) Platform** — a cloud-native solution for managing, processing, sharing, and visualizing geospatial data. It solves fragmented spatial data workflows across field engineers, government agencies, and enterprises by converting diverse GIS formats into centralized, accessible web map services.
 
 Primary target buyers: government departments (Natural Resources, Construction, Transport), project management boards, construction contractors, survey/cadastral engineers, and agricultural enterprises needing spatial data management.
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/plBeuE9L3zg" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 ## Core capabilities
 

@@ -3,7 +3,7 @@ title: FPT BSS
 type: product
 tags: [fpt-bss, bss, telecom, mvno, mno, billing, fpt-is]
 created: 2026-04-17
-updated: 2026-04-17
+updated: 2026-05-06
 source_count: 1
 po_email: LienDH@fpt.com
 ---
@@ -11,6 +11,12 @@ po_email: LienDH@fpt.com
 ## Overview
 
 **FPT.BSS** is FPT IS's **Business Support System (BSS) for Telecommunications** — the next-generation platform for managing all business operations of Mobile Network Operators (MNO) and Mobile Virtual Network Operators (MVNO). With 25 years of deployment history starting from Vietnam's earliest carriers, FPT BSS has scaled from 100,000 to tens of millions of subscribers and is deployed across Vietnam, Laos, Cambodia, and Singapore.
+
+
+<div class="video-wrapper">
+  <iframe src="https://www.youtube.com/embed/TIGLtMJbzpw" title="Video" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+</div>
+
 
 The system runs on two branded sub-products at its core: **FPT.BCCS** (Billing and Customer Care System) and **FPT.ePOS** (Sales & Marketing System), together covering the full telecom BSS stack per TMForum ODA and TAM 17.5.1 standards.
 
