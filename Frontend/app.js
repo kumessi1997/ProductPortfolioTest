@@ -553,6 +553,8 @@ function initResizers() {
         // Prevent text selection while resizing
         document.body.style.userSelect = 'none';
 
+        let rafId = null;
+
         function onMouseMove(e) {
             let newWidth;
             if (direction === 'left') {
@@ -567,6 +569,10 @@ function initResizers() {
                 } else {
                     chatSidebar.style.width = `${newWidth}px`;
                 }
+                if (riveInstance) {
+                    cancelAnimationFrame(rafId);
+                    rafId = requestAnimationFrame(() => riveInstance.resizeDrawingSurfaceToCanvas());
+                }
             }
         }
 
@@ -576,6 +582,11 @@ function initResizers() {
             resizer.classList.remove('dragging');
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseup', onMouseUp);
+            // Final resize pass after drag ends
+            if (riveInstance) {
+                cancelAnimationFrame(rafId);
+                riveInstance.resizeDrawingSurfaceToCanvas();
+            }
         }
 
         window.addEventListener('mousemove', onMouseMove);
